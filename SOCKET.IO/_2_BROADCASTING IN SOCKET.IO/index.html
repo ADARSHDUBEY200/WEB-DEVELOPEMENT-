@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>THE BROADCASTING IN THE SOCKET .IO </h1>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        // LISTEN THE EVENT BRAODCAST BY THE SERVER SIDE TO ALL THE CLIENTS  
+        // socket.on("broadcast", (data) => {
+
+        //     document.body.innerHTML = " ";
+
+        //     let h3 = document.createElement("h3");
+        //     h3.innerText = data.message;
+        //     document.body.appendChild(h3);
+        // })
+
+        // lISTEN THE EVENT EMITTED BY THE SERVER TO THE NEWUSER CONNECTED AND THE ALREADY CONNECTED USER 
+
+        socket.on("newUser",(data)=>{
+            document.body.innerHTML= " ";
+            let h3 = document.createElement("h3");
+            h3.innerText= data.message;
+            document.body.appendChild(h3);
+        })
+
+
+    </script>
+
+</body>
+
+</html>

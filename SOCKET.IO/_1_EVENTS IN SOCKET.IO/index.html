@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>EVENTS IN THE WEBSOCKETS AND THE SOCKET.IO AND LEARNING ABOUT THE CUSTOM EVENTS AND THE INBUILT EVENTS IN THE
+        SOCKET.IO </h1>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+        const socket = io();
+
+        // PRERESERVE EVENT 
+        // 1. CONNECT
+        // 2. CONNECT_ERROR 
+        // 3. CONNECT_TIMEOUT 
+        // 4. RECONNECT
+
+
+        //BASICALLY OUR SOCKET IS LISTENING THE PRERESERVED EVENT EMITTED BY THE SERVER SIDE 
+        socket.on("message", (data) => {
+            let h3 = document.createElement("h3");// CREATE A ELEMENT 
+            h3.innerText = data;
+            document.body.prepend(h3); // APPEND THAT H3 ELEMENT TO THE DOCUMENT 
+            console.log(data);
+            // document.write(data);
+        });
+
+
+        // CUSTOM EVENTS 
+
+        // 1. MESSAGE AND CUSTOM EVENTS IS EMITTED BY THE SERVER SIDE AND THEN LISTENING BY THE CLIENT SIDE
+
+            socket.on("custom", (data) => {
+                console.log(data);
+                console.log(data.message);
+
+                let h3 = document.createElement("h3");
+                h3.innerText = data.message;
+                document.body.appendChild(h3);
+
+            })
+        // 2. MESSAGE AND THE CUSTOM EVENTS IS EMITTED BY THE CLIENT SIDE AND LISTENING BY THE SERVER SIDE 
+
+        socket.emit("customEvent", { message: "THIS IS THE MESSAGE IS EMITTED BY THE CLIENT SIDE " });
+
+        // LISTENING THE RESPONSE EVENT BY THE SERVER SIDE 
+
+        socket.on("customEventRes",(data)=>{
+
+            console.log("THE RESPONESE DATA FROM THE SERVER SIDE "+data.message);
+            console.log("THE OBJECT SEND IN RESPONSE BY THE SERVER SIDE : "+data);
+            let h3 = document.createElement("h3");
+            h3.innerText= data.message;
+            document.body.appendChild(h3);
+
+        })
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>IN THIS TUTORIAL WE ARE GOING TO LEARNING ABOUT THE <b>ROOMS</b> IN THE SOCKET.IO </h1>
+
+    <script src="/socket.io/socket.io.js""></script>
+
+    <script>
+        const socket = io();
+
+        // EMIT EVENT TO JOIN ROOM 
+        socket.emit("joinroom", "room1"); 
+        
+        // LISTEN FOR THE SPECIFIC MESSAGE EMITTED BY THE ROOMS
+        socket.on("message", (data) => {
+           let h3 = document.createElement("h3");
+           h3.innerText = data.msg ;
+           document.body.appendChild(h3);
+
+        });
+
+        // SENDING THE MESSAGE TO THE SPECIFIC ROOM 
+
+        socket.emit("sendtoRoom", { room: "room1", message: "Hello Room1 " });
+
+        // LEAVE THE ROOM 
+        
+        setTimeout(() => {
+            socket.emit("leaveroom", "room1");
+
+        }, 15000);
+    </script>
+</body>
+
+</html>
